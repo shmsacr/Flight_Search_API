@@ -25,4 +25,17 @@ public class AirportController {
         return airportService.saveOneAirport(newAirport);
     }
 
+    @GetMapping("/{airportId}")
+    public Airport getOneAirport(@PathVariable Long airportId){
+        return airportService.getOneAirportById(airportId);
+    }
+    @PutMapping("/{airportId}")
+    public Airport updateOneAirport(@PathVariable Long airportId,@RequestBody Airport newAirport){
+        return airportService.updateOneAirport(airportId,newAirport);
+    }
+    @DeleteMapping("/{airportId}")
+    public void deleteOneAirport(@PathVariable Long airportId){
+        airportService.deleteOneAirport(airportId);
+    }
+
 }
