@@ -1,10 +1,10 @@
 package com.example.Flight_Search_API.controllers;
 
 import com.example.Flight_Search_API.entities.Flight;
+import com.example.Flight_Search_API.requests.FlightCreateRequest;
+import com.example.Flight_Search_API.requests.FlightUpdateRequest;
 import com.example.Flight_Search_API.services.FlightService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,4 +20,24 @@ public class FlightController {
     public List<Flight> getAllFlight(){
         return flightService.getAllFlight();
     }
+    @PostMapping
+    public Flight createOneFlight(@RequestBody FlightCreateRequest newFlightCreate){
+        return flightService.createOneFlight(newFlightCreate);
+    }
+    @GetMapping("/{flightId}")
+    public Flight getOneFlight(@PathVariable Long flightId){
+        return flightService.getOneFlight(flightId);
+    }
+
+    @PutMapping("/{flightId}")
+    public Flight updateOneFlight(@PathVariable Long flightId, @RequestBody FlightUpdateRequest updateFlight){
+        return flightService.updateOneFlight(flightId,updateFlight);
+    }
+    @DeleteMapping("/{flightId}")
+    public void deleteOneFlight(@PathVariable Long flightId){
+        flightService.deleteOneFlight(flightId);
+    }
+
+
+
 }
