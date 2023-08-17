@@ -16,14 +16,12 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "departure_id",nullable = false)
-    @JsonIgnore
     Airport departureAirport;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "arrival_id",nullable = false)
-    @JsonIgnore
     Airport arrivalAirport;
 
     LocalDate departureDateTime;
