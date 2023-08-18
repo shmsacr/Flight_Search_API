@@ -69,16 +69,16 @@ public class FlightService {
 
 
     public List<Flight> searchFlights(FlightSearchRequest flightSearchRequest) {
-        String departure = flightSearchRequest.getDeparture();
-        String arrival = flightSearchRequest.getArrival();
+        String departureAirport = flightSearchRequest.getDepartureAirport();
+        String arrivalAirport = flightSearchRequest.getArrivalAirport();
         LocalDate departureDate = flightSearchRequest.getDepartureDate();
         LocalDate returnDate = flightSearchRequest.getReturnDate();
         List<Flight> flights;
         if (returnDate == null){
-            flights = flightRepository.findFlightByDetails(departure, arrival, departureDate);
+            flights = flightRepository.findFlightByDetails(departureAirport, arrivalAirport, departureDate);
         }else {
-            flights = flightRepository.findFlightByDetails(departure, arrival, departureDate);
-            flights.addAll(flightRepository.findFlightByDetails(arrival, departure, returnDate));
+            flights = flightRepository.findFlightByDetails(departureAirport, arrivalAirport, departureDate);
+            flights.addAll(flightRepository.findFlightByDetails(arrivalAirport, departureAirport, returnDate));
 
         }
         return flights;
