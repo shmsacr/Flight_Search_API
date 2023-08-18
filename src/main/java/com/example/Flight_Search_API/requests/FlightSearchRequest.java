@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 @Data
 public class FlightSearchRequest {
-    private String departure;
-    private String arrival;
+    private String departureAirport;
+    private String arrivalAirport;
     private LocalDate departureDate;
     private LocalDate returnDate;
 
