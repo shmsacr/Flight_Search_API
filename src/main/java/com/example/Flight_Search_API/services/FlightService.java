@@ -4,9 +4,11 @@ import com.example.Flight_Search_API.entities.Airport;
 import com.example.Flight_Search_API.entities.Flight;
 import com.example.Flight_Search_API.repos.FlightRepository;
 import com.example.Flight_Search_API.requests.FlightCreateRequest;
+import com.example.Flight_Search_API.requests.FlightSearchRequest;
 import com.example.Flight_Search_API.requests.FlightUpdateRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Spliterator;
@@ -63,5 +65,22 @@ public class FlightService {
 
     public void deleteOneFlight(Long flightId) {
         flightRepository.deleteById(flightId);
+    }
+
+
+    public List<Flight> searchFlights(FlightSearchRequest flightSearchRequest) {
+        String departure = flightSearchRequest.getDeparture();
+        String arrival = flightSearchRequest.getArrival();
+        LocalDate departureDate = flightSearchRequest.getDepartureDate();
+        LocalDate returnDate = flightSearchRequest.getReturnDate();
+        List<Flight> flights;
+        if (returnDate == null){
+            flights = flightRepository.findFlightByDetails(departure, arrival, departureDate);
+        }else {
+            flights = flightRepository.findFlightByDetails(departure, arrival, departureDate);
+            flights.addAll(flightRepository.findFlightByDetails(arrival, departure, returnDate));
+
+        }
+        return flights;
     }
 }
