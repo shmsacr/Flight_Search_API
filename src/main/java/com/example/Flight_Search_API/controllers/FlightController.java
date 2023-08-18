@@ -29,7 +29,16 @@ public class FlightController {
         return flightService.createOneFlight(newFlightCreate);
     }
     @GetMapping("/search")
-    public List<Flight> searchFlight(@RequestPart FlightSearchRequest flightSearchRequest){
+    public List<Flight> searchFlight(@RequestParam String departureAirport,
+                                     @RequestParam String arrivalAirport,
+                                     @RequestParam LocalDate departureDate,
+                                     @RequestParam(required = false) LocalDate returnDate) {
+        FlightSearchRequest flightSearchRequest = new FlightSearchRequest();
+        flightSearchRequest.setDepartureAirport(departureAirport);
+        flightSearchRequest.setArrivalAirport(arrivalAirport);
+        flightSearchRequest.setDepartureDate(departureDate);
+        flightSearchRequest.setReturnDate(returnDate);
+
         return flightService.searchFlights(flightSearchRequest);
     }
     @GetMapping("/{flightId}")
